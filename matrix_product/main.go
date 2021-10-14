@@ -54,11 +54,6 @@ func main() {
 	close(stepOneChan)
 	close(stepTwoChan)
 
-	// fmt.Printf("\n\n")
-	// fmt.Printf("MatrixA = %v\n\n", matrixA)
-	// fmt.Printf("MatrixB = %v\n\n", matrixB)
-	// fmt.Printf("MatrixC = %v\n\n", matrixC)
-
 	duration := time.Since(start)
 	duration = duration.Truncate(time.Millisecond)
 
@@ -95,13 +90,6 @@ func workerProcess(mB [][]int64, stepOneChan <-chan StepOne, stepTwoChan chan<- 
 				Col: col,
 			}
 			for index := 0; index < matrixRange; index++ {
-				// fmt.Printf("(%d,%d) = (%d,%d) * (%d,%d) = %d * %d = %d\n\n",
-				// 	stepTwo.Row, stepTwo.Col,
-				// 	stepTwo.Row, index,
-				// 	stepTwo.Col, index,
-				// 	stepOne.Vector[index],
-				// 	mB[index][col],
-				// 	stepOne.Vector[index]*mB[index][col])
 				stepTwo.Result += stepOne.Vector[index] * mB[index][col]
 			}
 			stepTwoChan <- stepTwo
